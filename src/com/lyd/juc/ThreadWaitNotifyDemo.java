@@ -1,5 +1,9 @@
 package com.lyd.juc;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @Author Liuyunda
  * @Date 2021/4/20 20:10
@@ -10,8 +14,9 @@ package com.lyd.juc;
  */
 class AirConditioner{
     private int number = 0;
-
-    public synchronized void jia() throws InterruptedException {
+    private Lock lock = new ReentrantLock();
+    private Condition condition = lock.newCondition();
+    /*public synchronized void jia() throws InterruptedException {
         // 判断
         while (number != 0){
             this.wait();
@@ -33,6 +38,45 @@ class AirConditioner{
         System.out.println(Thread.currentThread().getName()+"\t"+number);
         // 通知
         this.notifyAll();
+
+    }*/
+    public void jia() throws InterruptedException {
+        lock.lock();
+        try{
+            // 判断
+            while (number != 0){
+                condition.await();
+            }
+            // 干活
+            number++;
+            System.out.println(Thread.currentThread().getName()+"\t"+number);
+            // 通知
+            condition.signalAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+        }
+
+
+    }
+    public void jian() throws InterruptedException {
+        lock.lock();
+        try{
+            // 判断
+            while (number == 0){
+                condition.await();
+            }
+            // 干活
+            number--;
+            System.out.println(Thread.currentThread().getName()+"\t"+number);
+            // 通知
+            condition.signalAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+        }
 
     }
 }
