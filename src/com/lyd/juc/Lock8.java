@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2021/4/20 21:59
  * @Email man021436@163.com
  * @Description: 多线程8锁
- * 1. 先打印邮件还是短信？ 邮件
+ * 1. 先打印邮件还是短信？ 不一定 synchronized为非公平锁
  * 2. 邮件方法暂停4秒钟请问先打印邮件还是短信？ 邮件
  *      1&2分析：一个对象里面如果有多个synchronized方法，某一时刻内，只要一个线程去调用其中的一个synchronized方法了，
  *              其他的线程都只能等待，换句话说，摸一个时刻内，只能有唯一一个线程去访问这些synchronized方法

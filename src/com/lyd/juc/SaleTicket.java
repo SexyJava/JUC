@@ -58,17 +58,17 @@ public class SaleTicket {
             }
         },"C").start();*/
         new Thread(() -> {
-            for (int i = 0; i <= 40; i++) {
+            for (int i = 0; i <= 100; i++) {
                 ticket.saleTicket();
             }
         }, "A").start();
         new Thread(() -> {
-            for (int i = 0; i <= 40; i++) {
+            for (int i = 0; i <= 100; i++) {
                 ticket.saleTicket();
             }
         }, "B").start();
         new Thread(() -> {
-            for (int i = 0; i <= 40; i++) {
+            for (int i = 0; i <= 100; i++) {
                 ticket.saleTicket();
             }
         }, "C").start();
