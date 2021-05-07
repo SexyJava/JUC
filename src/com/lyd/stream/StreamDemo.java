@@ -36,20 +36,30 @@ public class StreamDemo {
         User user1 = new User(12,"b",24);
         User user2 = new User(13,"c",22);
         User user3 = new User(14,"d",28);
-        User user4 = new User(15,"e",26);
+        User user4 = new User(16,"e",26);
         List<User> users = Arrays.asList(user, user1, user2, user3, user4);
+
+        users.stream().filter(u -> {
+            return u.getId() % 2 == 0;
+        }).filter(u -> {
+            return u.getAge() > 24;
+        }).map(u -> {
+            return u.getUsername().toUpperCase();
+        }).sorted((t1,t2)->{
+            return t2.compareTo(t1);
+        }).limit(1).forEach(System.out::println);
         // 函数型接口
-        Function<String ,Integer> function = s->{return s.length();};
-        System.out.println(function.apply("abc"));
+        // Function<String ,Integer> function = s->{return s.length();};
+        // System.out.println(function.apply("abc"));
         // 断定型接口
-        Predicate<String> predicate = s -> {return s.isEmpty(); };
-        System.out.println(predicate.test("abc"));
+        // Predicate<String> predicate = s -> {return s.isEmpty(); };
+        // System.out.println(predicate.test("abc"));
         // 消费型接口
-        Consumer<String> consumer = s->{ System.out.println(s); };
-        consumer.accept("abc");
+        // Consumer<String> consumer = s->{ System.out.println(s); };
+        // consumer.accept("abc");
         // 供给型接口
-        Supplier<String> supplier = ()->{return "abc";};
-        System.out.println(supplier.get());
+        // Supplier<String> supplier = ()->{return "abc";};
+        // System.out.println(supplier.get());
 
     }
 }
